@@ -1,0 +1,24 @@
+{
+  "name": "weekly-planner",
+  "version": "0.1.0",
+  "author": "Brad Walker",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bwalker8038/weekly-planner"
+  },
+  "engines": {
+    "node": "0.10.x"
+  },
+  "scripts": {
+    "start": "node app"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.5",
+    "grunt-contrib-watch": "~0.5.3",
+    "grunt-contrib-sass": "*",
+    "grunt-contrib-uglify": "*",
+    "grunt-browserify": "~1.2.4",
+    "grunt-concurrent": "~0.3.1",
+    "reactify": "*"
+  }
+}
