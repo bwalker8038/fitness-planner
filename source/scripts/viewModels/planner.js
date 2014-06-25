@@ -61,8 +61,6 @@ exports.setup = function ( app ) {
 
 // The Controller
 function PlannerController () {
-  console.log('Planner controller initialized');
-
   return this;
 }
 
