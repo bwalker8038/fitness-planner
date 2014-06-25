@@ -2,9 +2,10 @@
 * @jsx React.DOM
 */
 
+var headerComponent = require('./headerComponent.jsx');
 var dayComponent = require('./dayComponent.jsx');
 
-var EntriesComponent = React.createClass({
+var WeekComponent = React.createClass({
   componentWillMount: function () {
     this.callback = (function () {
       this.forceUpdate();
@@ -14,12 +15,12 @@ var EntriesComponent = React.createClass({
 
   getInitialState: function () {
     var updateState = function () {
-      this.setState({ entries: _.clone(this.props.week) });
+      this.setState({ days: _.clone(this.props.days) });
     };
 
-    this.props.entries.on('add', updateState, this);
+    this.props.days.on('add', updateState, this);
 
-    return { week: _.clone(this.props.week) };
+    return { days: _.clone(this.props.days) };
   },
 
   componentDidMount: function () {
@@ -29,21 +30,24 @@ var EntriesComponent = React.createClass({
 
   render: function () {
     var router = this.props.router;
-    var models = this.state.week.models;
+    var models = this.state.days.models;
     var self = this;
 
     var week = {};
 
-    models.forEach(function (entry) {
-      week['day-' + entry.get('name')] = <dayComponent day={day} />;
+    models.forEach(function (day) {
+      week['day-' + day.get('name')] = <dayComponent day={day} />;
     });
 
     return (
-      <div className='week'>{week}</div>
+      <div className="wrapper weekly-fitness-planner">
+        <headerComponent days={this.props.days} />
+        <div className='week-controls'>{week}</div>
+      </div>
     );
   }
 });
 
 
 // Export the Module
-module.exports = EntriesComponent;
+module.exports = WeekComponent;

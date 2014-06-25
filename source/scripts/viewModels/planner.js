@@ -6,7 +6,6 @@
  * Planner Controller
  * ******************
  * Controller for the
- * Standard and Mosaic
  * Planner Views.
  */
 
@@ -20,7 +19,20 @@ var dayView = require('../components/dayComponent.jsx');
 var Day = require('../models/day').Model;
 var DayCollection = require('../models/day').Collection;
 
-var days = new DayCollection();
+var days = new DayCollection([
+  { name: 'mon' },
+  { name: 'tue' },
+  { name: 'wed' },
+  { name: 'thu' },
+  { name: 'fri' },
+  { name: 'sat' },
+  { name: 'sun' }
+]);
+
+
+// Hard set our Fitness Goal, since we're not using a server
+days.fitnessGoal = 150;
+
 
 /* Module Export Setup
  * ===================
@@ -65,7 +77,7 @@ function PlannerController () {
 PlannerController.prototype.indexHandler = function () {
   // Render the entries
   React.renderComponent(
-    <weekView days={days} router={this}/>,
-    document.querySelectorAll('.weekly-planner')[0]
+    <weekView days={days} />,
+    $('.weekly-planner')[0]
   );
 };

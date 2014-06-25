@@ -5,11 +5,7 @@ html(lang="en")
     meta(http-equiv="X-UA-Compatible", content="IE=edge,chrome=1")
     title Weekly Activity Planner
     link(href="css/reset.css", rel="stylesheet")
-    link(href="css/index.css", rel="stylesheet")
-  body
-    header
-      h1 Weekly Fitness Goal
-      span.goal
-      output.total-time
-    .wrapper
-      .weekly-panel
+    link(href="css/main.css", rel="stylesheet")
+  body.planner(data-controller="planner")
+    .weekly-planner
+    script(type="text/javascript", src="build/application.js")

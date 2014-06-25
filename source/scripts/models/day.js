@@ -13,27 +13,18 @@ var DayCollection = Backbone.Collection.extend({
   // Collection Model
   model: Day,
 
-  url: '.json' + window.location.search,
+  // Calculate total mins of workout for the week
+  totalWorkout: function () {
+    var total = 0;
 
-  // Parses the Data Source
-  parse: function (data) {
-    return data.entries;
-  },
+    this.models.map(function ( model ) {
+      dayWorkout = parseInt(model.get('hoursAlloc'), 10);
+      total += dayWorkout;
+    });
 
+    return total;
+  }
 
-  // Model Methods
-  // -------------
-
-  // Gets the order of the Entries in the Collection
-  nextOrder: function () {
-    if ( !this.length ) {
-      return 1;
-    }
-    return this.last().get('order') + 1;
-  },
-
-  // Comparator, Sort collection by order
-  comparator: 'order'
 });
 
 

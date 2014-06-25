@@ -25,8 +25,8 @@ module.exports = function(grunt) {
         }
       },
       scripts: {
-        files: ['public/scripts/*.js'],
-        tasks: ['browserify', 'uglify'],
+        files: ['source/scripts/*.js'],
+        tasks: ['browserify', 'uglify', 'jade', 'sass'],
         options: {
           debounceDelay: 250
         }
@@ -38,44 +38,62 @@ module.exports = function(grunt) {
     browserify: {
       options: {
         transform: ['reactify'],
+        shim: {
+          jquery: {
+            path: 'source/scripts/vendor/jquery/dist/jquery.js',
+            exports: '$'
+          },
           underscore: {
-            path: 'public/components/underscore/underscore.js',
+            path: 'source/scripts/vendor/underscore/underscore.js',
             exports: '_'
           },
           backbone: {
-            path: 'public/components/backbone/backbone.js',
+            path: 'source/scripts/vendor/backbone/backbone.js',
             exports: 'Backbone',
             depends: {
               underscore: 'underscore'
             }
           },
           react: {
-            path: 'public/components/react/react',
+            path: 'source/scripts/vendor/react/react',
             exports: 'React'
           }
         }
       },
       files: {
-        src: ['public/scripts/application.js'],
+        src: ['source/scripts/application.js'],
         dest: 'public/build/application.js'
-      },
-      sass: {
-        dist: {
-          files: [{
-            expand: true,
-            cwd: 'scss',
-            src: ['*.scss'],
-            dest: '../public/stylesheets',
-            ext: '.css'
-          }]
+      }
+    },
+    sass: {
+      dist: {
+        files: [{
+          expand: true,
+          cwd: 'source/scss',
+          src: ['*.scss'],
+          dest: '../public/stylesheets',
+          ext: '.css'
+        }]
+      }
+    },
+
+    jade: {
+      compile: {
+        options: {
+          data: {
+            debug: false
+          }
+        },
+        files: {
+          "public/index.html": "source/index.jade"
         }
       }
     },
+
     uglify: {
       my_target: {
         files: {
-          'public/build/app.min.js': ['public/build/build.js'],
-          'public/build/application.min.js': ['public/build/application.js']
+          'public/build/app.min.js': ['public/build/application.js']
         }
       }
     }
@@ -87,6 +105,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-concurrent');
   grunt.loadNpmTasks('grunt-browserify');
   grunt.loadNpmTasks('grunt-contrib-uglify');
+  grunt.loadNpmTasks('grunt-contrib-jade');
 
-  grunt.registerTask('default', ['browserify', 'concurrent', 'sass', 'uglify']);
+  grunt.registerTask('default', ['browserify', 'concurrent', 'sass', 'uglify', 'jade']);
 };

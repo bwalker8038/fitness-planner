@@ -19,6 +19,8 @@
     "grunt-contrib-uglify": "*",
     "grunt-browserify": "~1.2.4",
     "grunt-concurrent": "~0.3.1",
+    "grunt-contrib-jade": "*",
+    "grunt-contrib-jshint": "*",
     "reactify": "*"
   }
 }
